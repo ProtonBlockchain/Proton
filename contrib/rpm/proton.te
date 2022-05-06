@@ -1,0 +1,81 @@
+policy_module(proton, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type proton_t;
+type proton_exec_t;
+init_daemon_domain(proton_t, proton_exec_t)
+
+permissive proton_t;
+
+type proton_initrc_exec_t;
+init_script_file(proton_initrc_exec_t)
+
+type proton_conf_t;
+files_type(proton_conf_t)
+
+type proton_var_lib_t;
+files_type(proton_var_lib_t)
+
+type proton_var_run_t;
+files_type(proton_var_run_t)
+
+type proton_port_t;
+corenet_port(proton_port_t)
+
+########################################
+#
+# proton local policy
+#
+allow proton_t self:process { fork };
+
+allow proton_t self:fifo_file rw_fifo_file_perms;
+allow proton_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(proton_t, proton_conf_t, proton_conf_t)
+manage_files_pattern(proton_t, proton_conf_t, proton_conf_t)
+
+manage_dirs_pattern(proton_t, proton_var_lib_t, proton_var_lib_t)
+manage_files_pattern(proton_t, proton_var_lib_t, proton_var_lib_t)
+files_var_lib_filetrans(proton_t, proton_var_lib_t, { dir file })
+
+manage_dirs_pattern(proton_t, proton_var_run_t, proton_var_run_t)
+manage_files_pattern(proton_t, proton_var_run_t, proton_var_run_t)
+
+sysnet_dns_name_resolve(proton_t)
+corenet_all_recvfrom_unlabeled(proton_t)
+
+allow proton_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(proton_t)
+corenet_tcp_sendrecv_generic_node(proton_t)
+corenet_tcp_sendrecv_all_ports(proton_t)
+corenet_tcp_bind_generic_node(proton_t)
+
+gen_require(`
+    type proton_port_t;
+')
+allow proton_t proton_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type proton_port_t;
+')
+allow proton_t proton_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(proton_t)
+
+files_read_etc_files(proton_t)
+
+miscfiles_read_localization(proton_t)
+
+sysnet_dns_name_resolve(proton_t)
+
+allow proton_t proton_exec_t:file execute_no_trans;
+allow proton_t self:process setsched;
+corecmd_exec_ls(proton_t)
+corenet_tcp_connect_http_port(proton_t)
+dev_read_urand(proton_t)
+fs_getattr_xattr_fs(proton_t)
+kernel_read_system_state(proton_t)

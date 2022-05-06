@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=Proton Daemon SNAP
+Comment=testnet
+GenericName=Proton Digital Currency Daemon Client testnet network
+Exec=proton-core.daemon-testnet %u
+Terminal=true
+Type=Application
+Icon=${SNAP}/share/pixmaps/proton_testnet.png
+MimeType=x-scheme-handler/pro;
+Categories=X-Office;X-Finance;
+Keywords=internet;proton;core;wallet;daemon;testnet;snap;launchpad;crypto;digital;currency;coin;token;
+Version=1.0

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Proton
+Comment=Proton P2P Cryptocurrency
+Comment[fr]=Proton, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Proton, eşten eşe kriptografik sanal para birimi
+Exec=proton-qt %u
+Terminal=false
+Type=Application
+Icon=proton128
+MimeType=x-scheme-handler/proton;
+Categories=Office;Finance;
+StartupWMClass=proton-qt

@@ -1,0 +1,8 @@
+/usr/bin/proton-cli		--	gen_context(system_u:object_r:proton_exec_t,s0)
+/usr/sbin/protond		--	gen_context(system_u:object_r:proton_exec_t,s0)
+/usr/lib(64)?/proton/protond		--	gen_context(system_u:object_r:proton_exec_t,s0)
+
+/etc/proton(/.*)?		gen_context(system_u:object_r:proton_conf_t,s0)
+/var/lib/proton(/.*)?		gen_context(system_u:object_r:proton_var_lib_t,s0)
+
+(/var)?/run/protond(/.*)?   gen_context(system_u:object_r:proton_var_run_t,s0)
